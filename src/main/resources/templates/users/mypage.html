@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+  <title>PicTweet</title>
+</head>
+
+<body>
+<div th:insert="~{header :: header}"></div>
+
+<div class="contents row">
+  <p th:text="${nickname} + 'さんの投稿一覧'"></p>
+
+  <!-- <div th:each="tweet : ${tweets}" class="content_post" th:style="'background-image: url(' + (${tweet.image}) + ');'">
+    <p th:text="${tweet.text}"></p> -->
+<!-- ↑を部分テンプレート用に、↓に書き換える -->
+  <div th:each="tweet : ${tweets}">
+    <div th:replace="~{tweets/tweet :: content(tweet=${tweet})}"></div>
+  </div> 
+    <!--削除　 <span class="name" th:text="${tweet.name}"></span> -->
+</div>
+
+<div th:insert="~{footer :: footer}"></div>
+
+</body>
+</html>

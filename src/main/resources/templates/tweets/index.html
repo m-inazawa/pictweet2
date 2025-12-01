@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<!-- xmlns:th="http://www.thymeleaf.org"は、Thymeleafを使用する全てのファイルに必要な記述 -->
+<head>
+  <meta charset="UTF-8">
+  <title>PicTweet</title>
+  <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div th:insert="~{header :: header}"></div>
+<!-- 部分テンプレート　一番親の要素にth:fragmentをつけることで定義する -->
+<!-- 定義した部分テンプレートは、th:insertを利用して呼び出す -->
+
+<form th:action="@{/tweets/search}" method="get" th:object="${searchForm}" class="search-form">
+  <input type="text" th:field="*{text}" name="text" placeholder="投稿を検索する" class="search-input" />
+  <input type="submit" class="search-btn" value="検索" />
+</form>
+
+<div class="contents row">
+  <div th:each="tweet : ${tweets}">
+    <div th:replace="~{tweets/tweet :: content(tweet=${tweet})}"></div>
+  </div>
+</div>
+
+<div th:insert="~{footer :: footer}"></div>
+
+</body>
+</html>

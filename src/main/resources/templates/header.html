@@ -1,0 +1,30 @@
+<header xmlns:th="http://www.thymeleaf.org" th:fragment="header" class="header">
+<!-- th:fragment="header"と書くことで、ヘッダーの部分テンプレートを定義している -->
+<!-- xmlns:th="http://www.thymeleaf.org"は、Thymeleafを使用する全てのファイルに必要な記述。部分テンプレートへの記述を忘れやすいため注意！ -->
+<div class="header__bar row">
+    <h1 class="grid-6"><a th:href="@{/}">PicTweet</a></h1>
+
+    <div class="user_nav grid-6" th:if="${#authorization.expression('isAuthenticated()')}">
+      <!-- th:if="${#authorization.expression('isAuthenticated()')}をdiv要素に付与することで、そのdiv要素はログインしている時にのみ表示される -->
+      <span>
+        <div th:text="${#authentication?.principal.getNickname()}"></div>
+        <ul class="user__info">
+          <li>
+            <a th:href="@{/users/{user_id}(user_id=${#authentication?.principal.getId()})}">マイページ</a>
+            <form th:action="@{/logout}" method="post">
+              <input class="logout-btn" type="submit" value="ログアウト"/>
+            </form>
+          </li>
+        </ul>
+      </span>
+      </form>
+      <a class="post" th:href="@{/tweets/new}">投稿する</a>
+    </div>
+
+    <div class="grid-6" th:if="${#authorization.expression('!isAuthenticated()')}">
+      <a class="post" th:href="@{/users/sign_up}">新規登録</a>
+      <a class="post" th:href="@{/users/login}">ログイン</a>
+    </div>
+
+  </div>
+</header>

@@ -1,0 +1,68 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.12'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'in.tech_camp'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo project for Spring Boot'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+// === Web & Core ===
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation' // 1つに統一
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    
+    // === データベース ===
+    runtimeOnly 'org.postgresql:postgresql'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.5'
+    implementation 'org.flywaydb:flyway-core'
+    implementation 'org.flywaydb:flyway-database-postgresql'
+
+    // === ユーティリティ/開発 ===
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+    // === テスト環境 (すべて testImplementation に統一) ===
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.5'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'com.github.javafaker:javafaker:1.0.2'
+    testImplementation 'org.jsoup:jsoup:1.15.3'
+    testImplementation 'com.h2database:h2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    implementation 'org.yaml:snakeyaml:1.29'
+    implementation 'com.github.javafaker:javafaker:1.0.2'
+
+    //そのほか
+    implementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.security:spring-security-test'
+    implementation 
+    implementation 
+}
+
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

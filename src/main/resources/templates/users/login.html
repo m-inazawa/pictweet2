@@ -1,0 +1,40 @@
+<!-- 「SecurityConfig.java」でログイン画面のパスをしているため参照して設定する -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <title>PicTweet</title>
+</head>
+<body>
+
+<div th:insert="~{header :: header}"></div>
+
+<div class="contents row">
+  <div class="container">
+    <h2>Log in</h2>
+   <p th:if="${loginError}" class="login-error" th:text="${loginError}"></p>
+      <!-- ↑ログインできなかった時のエラー表示させるための実装 -->
+    <form th:method="post" th:action="@{/login}" class="new_user">
+
+      <div class="field">
+        <label class="column-title">Email</label><br />
+        <input type="text" id="email" name="email" autofocus="autofocus" required="required" />
+      </div>
+
+      <div class="field">
+        <label class="password">Password</label><br />
+        <input type="password" name="password" required="required" autocomplete="off" />
+      </div>
+
+      <div class="actions">
+        <input type="submit" value="Log in">
+      </div>
+    </form>
+  </div>
+</div>
+
+<div th:insert="~{footer :: footer}"></div>
+
+</body>
+</html>

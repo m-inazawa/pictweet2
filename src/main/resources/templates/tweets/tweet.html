@@ -1,0 +1,37 @@
+<!-- こちらは、部分テンプレート
+  ※部分テンプレートの呼び出しには、th:replaceを使用する。 -->
+
+  <!-- ↑を部分テンプレート用に、↓に書き換える -->
+    <!-- <div th:each="tweet : ${tweets}" class="content_post" th:style="'background-image: url(' + (${tweet.image}) + ');'"> -->
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="content(tweet)" class="content_post" th:style="'background-image: url(' + (${tweet.image}) + ');'">
+  <div class="more">
+    <span><img th:src="@{/images/arrow_top.png}" /></span>
+<!-- 画像表示<img th:src="@{表示させたい画像のパス}" /> -->
+    <ul class="more_list">
+      <li>
+        <a th:href="@{/tweets/{tweetId}(tweetId=${tweet.id})}">詳細</a>
+      </li>
+      <div th:if="${#authorization.expression('isAuthenticated()') and #authentication?.principal.getId() == tweet.user.id}">
+<!-- #authentication?.principal.getId() == tweet.user.id}と記述することで、「現在ログインしているユーザーのid」と「ツイートを投稿したユーザーのid」が同じか否かを判定することができる -->
+<!-- ※if文で複数の条件を定義する時は、「and」を使用する -->
+        <li>
+          <a th:href="@{/tweets/{tweetId}/edit(tweetId=${tweet.id})}" class="update-btn">編集</a>
+        </li>
+        <li>
+          <form th:action="@{/tweets/{tweetId}/delete(tweetId=${tweet.id})}" th:method="post">
+<!-- ※通常、リクエストを送るためのパスはa要素で指定
+ 　　　ただ、a要素で送信することができるリクエストはGETのみ！ -->
+<!-- ここではPOSTを送りたいため、form要素を使用している。子要素としてボタンのみを持たせている。 -->
+            <input type="submit" class="delete-btn" value="削除">
+          </form>
+        </li>
+        </div>
+    </ul>
+  </div>
+  <p th:text="${tweet.text}"></p>
+  <span class="name">
+    <a th:href="@{/}">
+        <span>投稿者</span><span th:text="${tweet.user.nickname}"></span>
+    </a>
+  </span>
+</div>
