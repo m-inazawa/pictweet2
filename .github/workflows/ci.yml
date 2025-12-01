@@ -38,7 +38,7 @@ jobs:
     # 4. Gradleを使ってビルドとテストを実行するコマンド
     # 'build' タスクは通常、コンパイルと 'test' タスクの実行を含む
     - name: Build and test with Gradle
-      run: ./gradlew build
+      run: ./gradlew clean build      
 
     # 5. (オプション) テスト結果レポートをアーティファクトとしてアップロードする
     #    Gradleの test タスクがレポートを生成する設定になっている場合
